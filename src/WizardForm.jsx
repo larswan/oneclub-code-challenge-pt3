@@ -1,14 +1,13 @@
 import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react'
 import Step1 from './FormSteps/Step1'
-
-
+import Step2 from './FormSteps/Step2';
 
 const WizardForm = () => {
     const [formData, setFormData] = useState({
-        firstName: "Michael",
+        firstName: "",
         lastName: "",
-        age,
+        age: 25,
         email: "",
     })
 
@@ -29,3 +28,4 @@ const WizardForm = () => {
         </div>
     )
 }
+export default WizardForm

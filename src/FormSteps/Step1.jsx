@@ -9,6 +9,8 @@ const Step1 = ({ changeStep, formData, setFormData }) => {
         else return trimmedString 
     }
 
+    //set value to formData.name. onChange update state, onChangeStep handle validation
+
     return(
         <div className="stepContainer">
             <h1>Step 1</h1>
@@ -18,6 +20,7 @@ const Step1 = ({ changeStep, formData, setFormData }) => {
             name="First Name" 
             placeholder="enter first name" 
             id="firstName" 
+            value={formData.firstName}
             />
             <button onClick={e=>changeStep(e, -1)}>Previous Step</button>
             <button onClick={e => changeStep(e, 1)}>Next Step</button>
