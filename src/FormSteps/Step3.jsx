@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Step3 = ({formData, setFormData }) => {
+const Step3 = ({formData, setFormData, handleChange }) => {
     const navigate = useNavigate();
 
     const changeStep = (stepChange) => {
@@ -10,13 +10,6 @@ const Step3 = ({formData, setFormData }) => {
             window.alert("Birth year cannot be empty.");
         }
     };
-
-    const handleChange = (e) => {
-        setFormData({
-            ...formData,
-            birthYear: e.target.value
-        })
-    }
 
     const birthYearOptions = Array.from({ length: 114 }, (_, index) => 2023 - index);
 
@@ -37,8 +30,10 @@ const Step3 = ({formData, setFormData }) => {
                     </option>
                 ))}
             </select>
-            <button onClick={() => changeStep("/Step2")}>Previous Step</button>
-            <button onClick={() => changeStep("/Step4")}>Next Step</button>
+            <div className="buttonContainer">
+                <button onClick={() => changeStep("/Step2")}>Previous Step</button>
+                <button onClick={() => changeStep("/Step4")}>Next Step</button>
+            </div>
         </div>
     );
 };

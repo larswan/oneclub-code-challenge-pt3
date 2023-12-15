@@ -10,6 +10,8 @@ import Step4 from './FormSteps/Step4';
 import ConfirmationScreen from './FormSteps/ConfirmationScreen';
 
 function App() {
+  
+  // Initialize the data to pass to form steps
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -17,13 +19,15 @@ function App() {
     email: "",
   })
 
-  // update form state
+  // Generic update form state function
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
     })
   }
+  
+  // I was tripping up setting up a more efficient routing system so I handled routing explicitly in each component
   return (
     <div className="app">
       <BrowserRouter>
@@ -31,7 +35,7 @@ function App() {
           <Route path="/" element={<WizardForm />} />
           <Route path="/step1" element={<Step1 formData={formData} setFormData={setFormData} handleChange={handleChange}/>} />
           <Route path="/step2" element={<Step2 formData={formData} setFormData={setFormData} handleChange={handleChange} />} />
-          <Route path="/step3" element={<Step3 formData={formData} setFormData={setFormData} />} />
+          <Route path="/step3" element={<Step3 formData={formData} setFormData={setFormData} handleChange={handleChange} />} />
           <Route path="/step4" element={<Step4 formData={formData} setFormData={setFormData} handleChange={handleChange}/>} />
           <Route path="/confirmation" element={<ConfirmationScreen formData={formData} />} />
         </Routes>

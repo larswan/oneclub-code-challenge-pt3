@@ -20,11 +20,24 @@ const Step2 = ({handleChange, formData, setFormData }) => {
         )
     }
 
+    const capitalizeFirstLetter = (word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    };
+
     const validateName = (inputName) => {
-        const trimmedString = inputName.trim()
-        if (trimmedString === "") return false
-        else return trimmedString
-    }
+        const trimmedString = inputName.trim();
+
+        if (trimmedString === "") {
+            return false;
+        } else {
+            const capitalizedString = trimmedString
+                .split(" ")
+                .map((word) => capitalizeFirstLetter(word))
+                .join(" ");
+
+            return capitalizedString;
+        }
+    };
 
     return (
         <div className="stepContainer">
@@ -33,13 +46,15 @@ const Step2 = ({handleChange, formData, setFormData }) => {
             <input
                 type="text"
                 name="lastName"
-                placeholder="enter last name"
+                placeholder="Enter last name"
                 id="lastName"
                 value={formData.lastName}
                 onChange={e => handleChange(e)}
             />
-            <button onClick={e => changeStep("/Step1")}>Previous Step</button>
-            <button onClick={e => changeStep("/Step3")}>Next Step</button>
+            <div className="buttonContainer">
+                <button onClick={() => changeStep("/Step1")}>Previous Step</button>
+                <button onClick={() => changeStep("/Step3")}>Next Step</button>
+            </div>
         </div>
     )
 }

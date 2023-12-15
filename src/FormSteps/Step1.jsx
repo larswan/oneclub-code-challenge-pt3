@@ -15,16 +15,30 @@ const Step1 = ({handleChange, formData, setFormData }) => {
             })
             navigate(stepChange)
         }
+        // Prevent changing steps if entry is invalid
         else (
             window.alert("Name field cannot be empty.")
         )
     }
 
+    const capitalizeFirstLetter = (word) => {
+        return word.charAt(0).toUpperCase() + word.slice(1);
+    };
+
     const validateName = (inputName) => {
-        const trimmedString = inputName.trim()
-        if (trimmedString ==="") return false
-        else return trimmedString 
-    }
+        const trimmedString = inputName.trim();
+
+        if (trimmedString === "") {
+            return false;
+        } else {
+            const capitalizedString = trimmedString
+                .split(" ")
+                .map((word) => capitalizeFirstLetter(word))
+                .join(" ");
+
+            return capitalizedString;
+        }
+    };
 
     return(
         <div className="stepContainer">
@@ -33,14 +47,15 @@ const Step1 = ({handleChange, formData, setFormData }) => {
             <input 
             type="text" 
             name="firstName" 
-            placeholder="enter first name" 
+            placeholder="Enter first name" 
             id="firstName" 
             value={formData.firstName}
             onChange={e=>handleChange(e)}
-            onSubmit={e => changeStep("/Step2")}
             />
-            <button onClick={e=>changeStep("/")}>Previous Step</button>
-            <button onClick={e => changeStep("/Step2")}>Next Step</button>
+            <div className="buttonContainer">
+                <button onClick={()=>changeStep("/")}>Previous Step</button>
+                <button onClick={() => changeStep("/Step2")}>Next Step</button>
+            </div>
         </div>
     )
 }

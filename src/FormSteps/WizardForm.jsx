@@ -9,7 +9,7 @@ const WizardForm = () => {
     }
 
     return(
-        <div>
+        <div className="stepContainer">
             <h1>Wizard Form</h1> 
             <button onClick={handleClick}>Start Form</button>
         </div>

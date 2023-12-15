@@ -27,13 +27,15 @@ const Step4 = ({ formData, handleChange }) => {
             <input
                 type="email"
                 name="email"
-                placeholder="ex: example@gmail.com"
+                placeholder="Ex: example@gmail.com"
                 id="email"
                 value={formData.email}
                 onChange={e => handleChange(e)}
             />
-            <button onClick={() => changeStep("/Step3")}>Previous Step</button>
-            <button onClick={() => changeStep("/Confirmation")}>Next Step</button>
+            <div className="buttonContainer">
+                <button onClick={() => changeStep("/Step3")}>Previous Step</button>
+                <button onClick={() => changeStep("/Confirmation")}>Next Step</button>
+            </div>
         </div>
     );
 };
