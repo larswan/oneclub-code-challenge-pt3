@@ -4,10 +4,14 @@ import { useNavigate } from 'react-router-dom'
 const WizardForm = () => {
     const navigate = useNavigate()
 
+    const handleClick = () =>{
+        navigate(`/Step1`)
+    }
+
     return(
         <div>
             <h1>Wizard Form</h1> 
-            <button onClick={()=>navigate("/Step1")}>Start Form</button>
+            <button onClick={handleClick}>Start Form</button>
         </div>
     )
 }

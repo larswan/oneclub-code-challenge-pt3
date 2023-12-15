@@ -1,15 +1,30 @@
-const Step1 = ({ changeStep, formData, setFormData }) => {
+import { useNavigate } from "react-router-dom"
+
+const Step1 = ({handleChange, formData, setFormData }) => {
+    const navigate = useNavigate()
+
+    const changeStep = (stepChange) => {
+        const checkedName = validateName(formData.firstName)
+
+        //check to see if form is empty
+        if (checkedName) {
+            // remove spaces around name and set form data then move to the next step
+            setFormData({
+                ...formData,
+                firstName: checkedName
+            })
+            navigate(stepChange)
+        }
+        else (
+            window.alert("Name field cannot be empty.")
+        )
+    }
 
     const validateName = (inputName) => {
         const trimmedString = inputName.trim()
-        if (trimmedString ==="") {
-            window.alert("First name cannot be empty!")
-            return false
-        }
+        if (trimmedString ==="") return false
         else return trimmedString 
     }
-
-    //set value to formData.name. onChange update state, onChangeStep handle validation
 
     return(
         <div className="stepContainer">
@@ -17,13 +32,14 @@ const Step1 = ({ changeStep, formData, setFormData }) => {
             <label>First Name: </label>
             <input 
             type="text" 
-            name="First Name" 
+            name="firstName" 
             placeholder="enter first name" 
             id="firstName" 
             value={formData.firstName}
+            onChange={e=>handleChange(e)}
             />
-            <button onClick={e=>changeStep(e, -1)}>Previous Step</button>
-            <button onClick={e => changeStep(e, 1)}>Next Step</button>
+            <button onClick={e=>changeStep("/")}>Previous Step</button>
+            <button onClick={e => changeStep("/Step2")}>Next Step</button>
         </div>
     )
 }
