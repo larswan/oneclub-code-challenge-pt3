@@ -37,6 +37,7 @@ const Step1 = ({handleChange, formData, setFormData }) => {
             id="firstName" 
             value={formData.firstName}
             onChange={e=>handleChange(e)}
+            onSubmit={e => changeStep("/Step2")}
             />
             <button onClick={e=>changeStep("/")}>Previous Step</button>
             <button onClick={e => changeStep("/Step2")}>Next Step</button>

@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-const Step4 = ({ formData, setFormData, handleChange }) => {
+const Step4 = ({ formData, handleChange }) => {
     const navigate = useNavigate();
 
     const changeStep = (stepChange) => {
