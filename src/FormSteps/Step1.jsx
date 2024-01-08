@@ -1,62 +1,48 @@
-import { useNavigate } from "react-router-dom"
+import PropTypes from "prop-types";
+import { validateName } from "../functions";
 
-const Step1 = ({handleChange, formData, setFormData }) => {
-    const navigate = useNavigate()
+const Step1 = ({ handleChange, formData, setFormData, nextStep, prevStep }) => {
+  const changeStep = (stepChange) => {
+    // validate name will either return a capitalized name with spaces removed, or false if empty
+    const checkedName = validateName(formData.firstName);
 
-    const changeStep = (stepChange) => {
-        const checkedName = validateName(formData.firstName)
-
-        //check to see if form is empty
-        if (checkedName) {
-            // remove spaces around name and set form data then move to the next step
-            setFormData({
-                ...formData,
-                firstName: checkedName
-            })
-            navigate(stepChange)
-        }
-        // Prevent changing steps if entry is invalid
-        else (
-            window.alert("Name field cannot be empty.")
-        )
+    //check to see if form is empty
+    if (checkedName) {
+      setFormData({
+        ...formData,
+        firstName: checkedName,
+      });
+      stepChange();
     }
+    // Prevent changing steps if entry is invalid
+    else window.alert("Name field cannot be empty.");
+  };
 
-    const capitalizeFirstLetter = (word) => {
-        return word.charAt(0).toUpperCase() + word.slice(1);
-    };
+  return (
+    <div className="stepContainer">
+      <h1>Step 1</h1>
+      <label>First Name: </label>
+      <input
+        type="text"
+        name="firstName"
+        placeholder="Enter first name"
+        id="firstName"
+        value={formData.firstName}
+        onChange={(e) => handleChange(e)}
+      />
+      <div className="buttonContainer">
+        <button onClick={() => changeStep(prevStep)}>Previous Step</button>
+        <button onClick={() => changeStep(nextStep)}>Next Step</button>
+      </div>
+    </div>
+  );
+};
+export default Step1;
 
-    const validateName = (inputName) => {
-        const trimmedString = inputName.trim();
-
-        if (trimmedString === "") {
-            return false;
-        } else {
-            const capitalizedString = trimmedString
-                .split(" ")
-                .map((word) => capitalizeFirstLetter(word))
-                .join(" ");
-
-            return capitalizedString;
-        }
-    };
-
-    return(
-        <div className="stepContainer">
-            <h1>Step 1</h1>
-            <label>First Name: </label>
-            <input 
-            type="text" 
-            name="firstName" 
-            placeholder="Enter first name" 
-            id="firstName" 
-            value={formData.firstName}
-            onChange={e=>handleChange(e)}
-            />
-            <div className="buttonContainer">
-                <button onClick={()=>changeStep("/")}>Previous Step</button>
-                <button onClick={() => changeStep("/Step2")}>Next Step</button>
-            </div>
-        </div>
-    )
-}
-export default Step1
+Step1.propTypes = {
+  handleChange: PropTypes.func.isRequired,
+  formData: PropTypes.object.isRequired,
+  setFormData: PropTypes.func.isRequired,
+  nextStep: PropTypes.func.isRequired,
+  prevStep: PropTypes.func.isRequired,
+};

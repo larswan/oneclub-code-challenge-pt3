@@ -1,43 +1,40 @@
-import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
+import { validateEmail } from "../functions";
 
-const Step4 = ({ formData, handleChange }) => {
-    const navigate = useNavigate();
-
-    const changeStep = (stepChange) => {
-        if (validateEmail(formData.email)) {
-            navigate(stepChange);
-        } else {
-            window.alert("Invalid e-mail address.");
-        }
-    };
-    
-    const validateEmail = (email) => {
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        return emailRegex.test(email);
-    };
-
-    const testChange = (e) => {
-        console.log(validateEmail(e.target.value))
+const Step4 = ({ formData, handleChange, nextStep, prevStep }) => {
+  const changeStep = (stepChange) => {
+    if (validateEmail(formData.email)) {
+      stepChange();
+    } else {
+      window.alert("Invalid e-mail address.");
     }
+  };
 
-    return (
-        <div className="stepContainer">
-            <h1>Step 4</h1>
-            <label>e-mail: </label>
-            <input
-                type="email"
-                name="email"
-                placeholder="Ex: example@gmail.com"
-                id="email"
-                value={formData.email}
-                onChange={e => handleChange(e)}
-            />
-            <div className="buttonContainer">
-                <button onClick={() => changeStep("/Step3")}>Previous Step</button>
-                <button onClick={() => changeStep("/Confirmation")}>Next Step</button>
-            </div>
-        </div>
-    );
+  return (
+    <div className="stepContainer">
+      <h1>Step 4</h1>
+      <label>e-mail: </label>
+      <input
+        type="email"
+        name="email"
+        placeholder="Ex: example@gmail.com"
+        id="email"
+        value={formData.email}
+        onChange={(e) => handleChange(e)}
+      />
+      <div className="buttonContainer">
+        <button onClick={() => changeStep(prevStep)}>Previous Step</button>
+        <button onClick={() => changeStep(nextStep)}>Next Step</button>
+      </div>
+    </div>
+  );
 };
 
 export default Step4;
+
+Step4.propTypes = {
+  formData: PropTypes.object.isRequired,
+  handleChange: PropTypes.func.isRequired,
+  nextStep: PropTypes.func.isRequired,
+  prevStep: PropTypes.func.isRequired,
+};
