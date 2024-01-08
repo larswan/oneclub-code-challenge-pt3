@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { validateEmail } from "../functions";
+import { validateEmail } from "../validationFunctions";
 
 const Step4 = ({ formData, handleChange, nextStep, prevStep }) => {
   const changeStep = (stepChange) => {
